@@ -25,18 +25,21 @@ def update_index_html(title, latest_number):
                 file.write('\n' + button_script + '\n')
         file.truncate()
 
-def create_new_article_file(template_file, title, latest_number):
+def create_new_article_file(template_file, title, content, latest_number):
     new_file_name = f'{latest_number + 1}.html'
     copyfile(template_file, new_file_name)
     with open(new_file_name, 'r+') as file:
-        content = file.read()
-        content = content.replace('{{title}}', title)
+        lines = file.readlines()
         file.seek(0)
-        file.write(content)
+        for line in lines:
+            file.write(line)
+            if line.strip().startswith('<!-- Article Content -->'):
+                file.write(f'<!-- Article Content -->\n{content}\n')
         file.truncate()
 
 # User input
 title = input('Enter the article title: ')
+content = input('Enter the article content: ')
 template_file = 'Templates/template.html'
 
 # Get the latest file number
@@ -46,6 +49,6 @@ latest_number = get_latest_file_number()
 update_index_html(title, latest_number)
 
 # Create new article file
-create_new_article_file(template_file, title, latest_number)
+create_new_article_file(template_file, title, content, latest_number)
 
 print(f'Article "{title}" added successfully!')
