@@ -1,6 +1,7 @@
 import os
 import re
 from shutil import copyfile
+from jinja2 import Environment, FileSystemLoader
 
 def get_latest_file_number():
     file_list = [f for f in os.listdir('.') if f.endswith('.html') and f != 'index.html']
@@ -27,17 +28,11 @@ def update_index_html(title, latest_number):
 
 def create_new_article_file(template_file, title, content, latest_number):
     new_file_name = f'{latest_number}.html'
-    copyfile(template_file, new_file_name)
-    with open(new_file_name, 'r+') as file:
-        lines = file.readlines()
-        file.seek(0)
-        for line in lines:
-            if line.strip().startswith('<!-- Article Content -->'):
-                file.write(line)
-                file.write(f'{content}\n')
-            else:
-                file.write(line)
-        file.truncate()
+    env = Environment(loader=FileSystemLoader('.'))
+    template = env.get_template(template_file)
+    rendered_content = template.render(title=title, content=content)
+    with open(new_file_name, 'w') as file:
+        file.write(rendered_content)
 
 # User input
 title = input('Enter the article title: ')
