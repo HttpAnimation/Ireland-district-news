@@ -28,22 +28,33 @@ def create_new_article_file(template_file, title, content, latest_number):
     with open(new_file_name, 'w') as file:
         file.write(rendered_content)
 
-# User input
-title = input('Enter the article title: ')
+# Initialize the loop control variable
+add_another = True
 
-# Read content from file
-with open('maker.api', 'r') as file:
-    content = file.read()
+while add_another:
+    # User input
+    title = input('Enter the article title (or "exit" to quit): ')
 
-template_file = 'Templates/template.html'
+    if title.lower() == 'exit':
+        add_another = False
+        break
 
-# Get the latest file number
-latest_number = get_latest_file_number()
+    # Read content from file
+    with open('maker.api', 'r') as file:
+        content = file.read()
 
-# Update index.html
-update_index_html(title, latest_number + 1)
+    template_file = 'Templates/template.html'
 
-# Create new article file
-create_new_article_file(template_file, title, content, latest_number + 1)
+    # Get the latest file number
+    latest_number = get_latest_file_number()
 
-print(f'Article "{title}" added successfully!')
+    # Update index.html
+    update_index_html(title, latest_number + 1)
+
+    # Create new article file
+    create_new_article_file(template_file, title, content, latest_number + 1)
+
+    print(f'Article "{title}" added successfully!')
+
+print('Exiting the script.')
+
