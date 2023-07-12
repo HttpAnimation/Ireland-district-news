@@ -3,7 +3,7 @@ import re
 from shutil import copyfile
 
 def get_latest_file_number():
-    file_list = [f for f in os.listdir('.') if f.endswith('.html')]
+    file_list = [f for f in os.listdir('.') if f.endswith('.html') and f != 'index.html']
     if file_list:
         latest_file = max(file_list, key=lambda x: int(re.findall(r'\d+', x)[0]))
         return int(re.findall(r'\d+', latest_file)[0])
