@@ -14,17 +14,11 @@ def get_latest_file_number():
 def update_index_html(title, latest_number):
     index_file = 'index.html'
     button_script = f'<button class="article-button" onclick="window.location.href=\'{latest_number}.html\'">{title}</button>'
-    with open(index_file, 'r+') as file:
-        lines = file.readlines()
-        file.seek(0)
-        for line in lines:
-            file.write(line)
-            if line.strip().startswith('<button class="article-button"'):
-                file.write('\n')
-                continue
-            if line.strip().startswith('</body>'):
-                file.write('\n' + button_script + '\n')
-        file.truncate()
+    with open(index_file, 'r') as file:
+        content = file.read()
+    updated_content = re.sub(r'</div>\s*</body>', f'{button_script}\n</div>\n</body>', content)
+    with open(index_file, 'w') as file:
+        file.write(updated_content)
 
 def create_new_article_file(template_file, title, content, latest_number):
     new_file_name = f'{latest_number}.html'
@@ -36,7 +30,11 @@ def create_new_article_file(template_file, title, content, latest_number):
 
 # User input
 title = input('Enter the article title: ')
-content = input('Enter the article content: ')
+
+# Read content from file
+with open('maker.api', 'r') as file:
+    content = file.read()
+
 template_file = 'Templates/template.html'
 
 # Get the latest file number
