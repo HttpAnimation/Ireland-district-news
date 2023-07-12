@@ -5,8 +5,8 @@ from shutil import copyfile
 def get_latest_file_number():
     file_list = [f for f in os.listdir('.') if f.endswith('.html') and f != 'index.html']
     if file_list:
-        latest_file = max(file_list, key=lambda x: int(re.findall(r'\d+', x)[0]))
-        return int(re.findall(r'\d+', latest_file)[0])
+        latest_file = max(file_list, key=lambda x: int(re.findall(r'\d+', x)[-1]))
+        return int(re.findall(r'\d+', latest_file)[-1])
     else:
         return 0
 
@@ -48,7 +48,7 @@ template_file = 'Templates/template.html'
 latest_number = get_latest_file_number()
 
 # Update index.html
-update_index_html(title, latest_number + 1)
+update_index_html(title, latest_number)
 
 # Create new article file
 create_new_article_file(template_file, title, content, latest_number + 1)
