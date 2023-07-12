@@ -1,13 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4599473526569649"
-     crossorigin="anonymous"></script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <title>Ireland District News</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #111;
+      color: #fff;
+    }
+
+    #header {
+      background-color: #222;
+      padding: 10px;
+    }
+
+    #logo {
+      float: left;
+      width: 100px;
+      height: 100px;
+      cursor: pointer;
+    }
+
+    #article-buttons {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    .article-button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      margin: 10px;
+    }
+
+    /* Dark mode styles */
+    body.dark-mode {
+      background-color: #222;
+      color: #fff;
+    }
+
+    body.dark-mode #header {
+      background-color: #111;
+    }
+
+    body.dark-mode .article-button {
+      background-color: #008000;
+    }
+  </style>
+  <script>
+    function toggleDarkMode() {
+      var body = document.body;
+      body.classList.toggle("dark-mode");
+    }
+
+    function goToHomePage() {
+      window.location.href = 'index.html';
+    }
+  </script>
 </head>
 <body>
-    
+  <div id="header">
+    <img id="logo" src="logo.png" alt="Ireland District News Logo" onclick="goToHomePage()">
+  </div>
+
+  <div id="article-buttons">
+    <button class="article-button" onclick="window.location.href='article1.html'">Article 1</button>
+    <button class="article-button" onclick="window.location.href='article2.html'">Article 2</button>
+    <button class="article-button" onclick="window.location.href='article3.html'">Article 3</button>
+    <button class="article-button" onclick="window.location.href='article4.html'">Article 4</button>
+  </div>
 </body>
 </html>
