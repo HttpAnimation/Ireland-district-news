@@ -26,7 +26,7 @@ def update_index_html(title, latest_number):
         file.truncate()
 
 def create_new_article_file(template_file, title, content, latest_number):
-    new_file_name = f'{latest_number + 1}.html'
+    new_file_name = f'{latest_number}.html'
     copyfile(template_file, new_file_name)
     with open(new_file_name, 'r+') as file:
         lines = file.readlines()
@@ -48,7 +48,7 @@ template_file = 'Templates/template.html'
 latest_number = get_latest_file_number()
 
 # Update index.html
-update_index_html(title, latest_number)
+update_index_html(title, latest_number + 1)
 
 # Create new article file
 create_new_article_file(template_file, title, content, latest_number + 1)
