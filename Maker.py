@@ -32,9 +32,11 @@ def create_new_article_file(template_file, title, content, latest_number):
         lines = file.readlines()
         file.seek(0)
         for line in lines:
-            file.write(line)
             if line.strip().startswith('<!-- Article Content -->'):
-                file.write(f'<!-- Article Content -->\n{content}\n')
+                file.write(line)
+                file.write(f'{content}\n')
+            else:
+                file.write(line)
         file.truncate()
 
 # User input
@@ -46,9 +48,9 @@ template_file = 'Templates/template.html'
 latest_number = get_latest_file_number()
 
 # Update index.html
-update_index_html(title, latest_number)
+update_index_html(title, latest_number + 1)
 
 # Create new article file
-create_new_article_file(template_file, title, content, latest_number)
+create_new_article_file(template_file, title, content, latest_number + 1)
 
 print(f'Article "{title}" added successfully!')
